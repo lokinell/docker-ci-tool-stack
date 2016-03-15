@@ -47,9 +47,7 @@ gitlab:
     - "10080:80"
     - "10022:22"
   environment:
-    - TZ=Asia/Shanghai
-    - GITLAB_TIMEZONE=Shanghai
-
+    - GITLAB_TIMEZONE=Asia/Shanghai
     - GITLAB_SECRETS_DB_KEY_BASE=c678a29e-ea62-11e5-a669-442a60db842f
 
     - GITLAB_HOST=localhost
@@ -66,22 +64,17 @@ gitlab:
     - GITLAB_BACKUPS=daily
     - GITLAB_BACKUP_TIME=01:00
 
-    - SMTP_ENABLED=false
     - SMTP_DOMAIN=www.mxhichina.com
     - SMTP_HOST=smtp.mxhichina.com
     - SMTP_PORT=465
     - SMTP_USER=no-reply@datarx.cn
     - SMTP_PASS=DataRx2016
-    - SMTP_STARTTLS=true
     - SMTP_AUTHENTICATION=login
 
-    - IMAP_ENABLED=false
     - IMAP_HOST=imap.mxhichina.com
     - IMAP_PORT=993
     - IMAP_USER=no-reply@datarx.cn
     - IMAP_PASS=DataRx2016
-    - IMAP_SSL=true
-    - IMAP_STARTTLS=false
   volumes:
     - /srv/docker/gitlab/gitlab:/home/git/data
   restart: always
