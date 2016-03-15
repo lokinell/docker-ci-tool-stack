@@ -29,13 +29,11 @@ RUN yum -y install java-1.7.0-openjdk-devel \
     yum clean all
 ENV JAVA_HOME /usr/lib/jvm/jre
 
-ENV NEXUS_VERSION 2.12.0-01
-
 ##########################################################
 # Install Nexus
 ##########################################################
 RUN mkdir -p /opt/sonatype-nexus /opt/sonatype-work
-RUN wget -O /tmp/nexus-latest-bundle.tar.gz https://sonatype-download.global.ssl.fastly.net/nexus/oss/nexus-$NEXUS_VERSION-bundle.tar.gz
+RUN wget -O /tmp/nexus-latest-bundle.tar.gz https://sonatype-download.global.ssl.fastly.net/nexus/oss/nexus-2.12.0-01-bundle.tar.gz
 RUN tar xzvf /tmp/nexus-latest-bundle.tar.gz -C /opt/sonatype-nexus --strip-components=1
 RUN useradd --user-group --system --home-dir /opt/sonatype-nexus nexus
 

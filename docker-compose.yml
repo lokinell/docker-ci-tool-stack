@@ -1,12 +1,12 @@
 nexus:
   build: ./nexus
   ports:
-    - "18081:8081"
+    - 8081:8081
 
 jenkins:
   build: ./jenkins
   ports:
-    - "18080:8080"
+    - "8080:8080"
   links:
     - nexus:nexus
     - gitlab:gitlab
@@ -19,7 +19,7 @@ jenkins:
 sonar:
   image: webdizz/sonarqube:5.1.2
   ports:
-    - 19000:9000
+    - 9000:9000
     - 5432:5432
   environment:
     - SONAR_JDBC_URL=jdbc:postgresql://localhost:5432/sonar
@@ -30,24 +30,24 @@ db:
    - POSTGRES_USER=sonar
    - POSTGRES_PASSWORD=sonar
 
-selhub:
-  image: selenium/hub
-  ports:
-    - 4444:4444
+# selhub:
+#   image: selenium/hub
+#   ports:
+#     - 4444:4444
 
-nodeff:
-  image: selenium/node-firefox-debug
-  ports:
-    - 5900
-  links:
-    - selhub:hub
+# nodeff:
+#   image: selenium/node-firefox-debug
+#   ports:
+#     - 5900
+#   links:
+#     - selhub:hub
 
-nodechrome:
-  image: selenium/node-chrome-debug
-  ports:
-    - 5900
-  links:
-    - selhub:hub
+# nodechrome:
+#   image: selenium/node-chrome-debug
+#   ports:
+#     - 5900
+#   links:
+#     - selhub:hub
 
 postgresql:
   image: sameersbn/postgresql:9.4-3
@@ -79,27 +79,27 @@ gitlab:
     - GITLAB_NOTIFY_ON_BROKEN_BUILDS=true
     - GITLAB_NOTIFY_PUSHER=false
 
-    - GITLAB_EMAIL=notifications@example.com
-    - GITLAB_EMAIL_REPLY_TO=noreply@example.com
-    - GITLAB_INCOMING_EMAIL_ADDRESS=reply@example.com
+    - GITLAB_EMAIL=no-reply@datarx.cn
+    - GITLAB_EMAIL_REPLY_TO=no-reply@datarx.cn
+    - GITLAB_INCOMING_EMAIL_ADDRESS=no-reply@datarx.cn
 
     - GITLAB_BACKUPS=daily
     - GITLAB_BACKUP_TIME=01:00
 
     - SMTP_ENABLED=false
-    - SMTP_DOMAIN=www.example.com
-    - SMTP_HOST=smtp.gmail.com
-    - SMTP_PORT=587
-    - SMTP_USER=mailer@example.com
-    - SMTP_PASS=password
+    - SMTP_DOMAIN=www.mxhichina.com
+    - SMTP_HOST=smtp.mxhichina.com
+    - SMTP_PORT=465
+    - SMTP_USER=no-reply@datarx.cn
+    - SMTP_PASS=DataRx2016
     - SMTP_STARTTLS=true
     - SMTP_AUTHENTICATION=login
 
     - IMAP_ENABLED=false
-    - IMAP_HOST=imap.gmail.com
+    - IMAP_HOST=imap.mxhichina.com
     - IMAP_PORT=993
-    - IMAP_USER=mailer@example.com
-    - IMAP_PASS=password
+    - IMAP_USER=no-reply@datarx.cn
+    - IMAP_PASS=DataRx2016
     - IMAP_SSL=true
     - IMAP_STARTTLS=false
   volumes:
@@ -108,3 +108,10 @@ redis:
   image: sameersbn/redis:latest
   volumes:
     - /srv/docker/gitlab/redis:/var/lib/redis
+
+registry:
+  image: registry
+  volumes:
+    - /var/lib/docker/registry:/var/lib/docker/registry
+  ports:
+    - 5000:5000
